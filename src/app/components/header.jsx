@@ -30,7 +30,7 @@ export default function Header() {
       <div className={clsx("w-full flex mt-3")}>
         <ul className={clsx("flex items-center gap-2.5")}>
           <li>
-            <a href="https://facebook" className={clsx("flex items-center")}>
+            <a href="https://www.facebook.com/share/ZndWccuLoUs7WG9U/?mibextid=LQQJ4d" className={clsx("flex items-center")}>
               <Image
                 src="/icons/facebook.png"
                 width={20}
@@ -40,7 +40,7 @@ export default function Header() {
             </a>
           </li>
           <li>
-            <a href="https://instagram" className={clsx("flex items-center")}>
+            <a href="https://www.instagram.com/myagkof_furniture.ua?igsh=MWZod2gycDRlZTRzcg%3D%3D&utm_source=qr" className={clsx("flex items-center")}>
               <Image
                 src="/icons/instagram.png"
                 width={20}
@@ -49,7 +49,7 @@ export default function Header() {
               />
             </a>
           </li>
-          <li>
+          {/* <li>
             <a href="https://twiter" className={clsx("flex items-center")}>
               <Image
                 src="/icons/twiter.png"
@@ -58,7 +58,7 @@ export default function Header() {
                 alt="twiter-logo"
               />
             </a>
-          </li>
+          </li> */}
         </ul>
         <ul className={clsx("flex ml-auto items-center gap-3")}>
           <li>
