@@ -14,6 +14,7 @@ export default function Bestsellers () {
                     <div>
                         <Image 
                             src={swipiCorner}
+                            alt='Corner sofa Swipi'
                         />
                         <p className={clsx('mt-5 text-center underline underline-offset-8')}>Swipi Corner</p>
                     </div>
@@ -22,6 +23,7 @@ export default function Bestsellers () {
                     <div>
                         <Image 
                             src={faynee}
+                            alt='Faynee linear sofa'
                             />
                         <p className={clsx('mt-5 text-center underline underline-offset-8')}>Faynee XL</p>
                     </div>
@@ -30,6 +32,7 @@ export default function Bestsellers () {
                     <div>
                         <Image 
                             src={swipi}
+                            alt='Swipi linear sofa'
                             />
                         <p className={clsx('mt-5 text-center underline underline-offset-8')}>Swipi</p>
                     </div>
@@ -38,6 +41,7 @@ export default function Bestsellers () {
                     <div>
                         <Image 
                             src={fayneeMini}
+                            alt='Faynee mini linear sofa'
                             />
                         <p className={clsx('mt-5 text-center underline underline-offset-8')}>Faynee mini</p>
                     </div>

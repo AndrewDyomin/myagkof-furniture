@@ -12,7 +12,7 @@ export default function Header() {
             height={40}
             alt="myagkof-logo"
           />
-          <p className={clsx("ml-2.5 font-bold")}>М'якоff</p>
+          <p className={clsx("ml-2.5 font-bold")}>М&apos;якоff</p>
         </a>
         <ul className={clsx("flex ml-auto items-center gap-3")}>
           <li>
