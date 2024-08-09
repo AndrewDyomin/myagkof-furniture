@@ -5,6 +5,7 @@ import Hero from "./components/hero";
 import ToCatalogBtns from "./components/toCatalogBtns";
 import Bestsellers from "./components/bestsellers";
 import InfoSection from "./components/infoSection";
+import Footer from "./components/footer";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <ToCatalogBtns />
       <Bestsellers />
       <InfoSection />
+      <Footer />
     </main>
   );
 }
