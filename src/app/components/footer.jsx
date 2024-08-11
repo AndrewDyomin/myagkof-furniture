@@ -1,6 +1,4 @@
 import clsx from "clsx";
-import Image from "next/image";
-import Logo from "../../../public/icons/myagkof-logo.svg";
 
 export default function Footer() {
   return (
@@ -11,12 +9,9 @@ export default function Footer() {
           href="/"
           className={clsx("flex items-center")}
         >
-          <Image 
-            src={Logo} 
-            alt="myagkof-logo" 
-            width={40}
-            height={40}
-            />
+          <svg className={clsx('text-blue-200 h-8 w-8')}>
+            <use href="./icons/sprite.svg#icon-myagkof-logo"/>
+          </svg>
           <p className={clsx("ml-2.5 font-bold")}>М&apos;якоff</p>
         </a>
       </div>
