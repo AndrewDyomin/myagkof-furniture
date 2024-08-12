@@ -3,11 +3,11 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <div className={clsx("py-14 px-14 bg-[#8a8475]")}>
+    <div className={clsx("mt-auto py-14 px-14 bg-[#8a8475]")}>
       <div className={clsx('flex')}>
         <div>
           <h4 className={clsx("text-lg text-slate-50")}>Subscribe to our news</h4>
-          <label for='subscribe' className={clsx("block text-slate-50 mt-5")}>
+          <label htmlFor='subscribe' className={clsx("block text-slate-50 mt-5")}>
             Email:
           </label>
           <input id='subscribe' className={clsx("block mt-2 bg-transparent border-solid border-2 py-2 px-5 text-slate-50")}/>
