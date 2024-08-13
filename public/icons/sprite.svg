@@ -10,7 +10,9 @@
         <path d="M16 7.781c-4.537 0-8.219 3.681-8.219 8.219s3.681 8.219 8.219 8.219 8.219-3.681 8.219-8.219c0-4.537-3.681-8.219-8.219-8.219zM16 21.331c-2.944 0-5.331-2.387-5.331-5.331s2.387-5.331 5.331-5.331c2.944 0 5.331 2.387 5.331 5.331s-2.387 5.331-5.331 5.331z"></path>
         <path d="M26.462 7.456c0 1.060-0.859 1.919-1.919 1.919s-1.919-0.859-1.919-1.919c0-1.060 0.859-1.919 1.919-1.919s1.919 0.859 1.919 1.919z"></path>
     </svg>
-</svg>
+    <svg id="icon-menu" width="32" height="32" viewBox="0 0 32 32" x="0" y="0">
+        <path d="M28 13.333H4M28 8H4M28 18.667H4M28 24H4" stroke="#050505" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
 
 <!-- <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
     <defs>

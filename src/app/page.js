@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+
 import Hero from "./components/hero";
 import ToCatalogBtns from "./components/toCatalogBtns";
 import Bestsellers from "./components/bestsellers";

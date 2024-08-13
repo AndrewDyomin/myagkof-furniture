@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={clsx(inter.className, 'flex flex-col min-h-[100vh] w-full px-10')}>
-        <Header />
+        <Header/>
         <div>
           {children}
         </div>
