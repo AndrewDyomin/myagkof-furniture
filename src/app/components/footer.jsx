@@ -2,21 +2,32 @@
 
 import clsx from "clsx";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
 export default function Footer() {
 
+  const isMini = useMediaQuery({ query: "(max-width: 420px)" })
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null
+  }
 
   return (
-    <div className={clsx("mt-auto py-14 px-14 bg-[#8a8475]")}>
+    <div className={clsx("mt-auto py-14 px-14 bg-[#8a8475]", isMini && "px-2")}>
       <div className={clsx('flex', isMobile && 'flex-col gap-10 items-center')}>
-        <div>
+        <div className={clsx(isMini && 'w-full')}>
           <h4 className={clsx("text-lg text-slate-50")}>Subscribe to our news</h4>
           <label htmlFor='subscribe' className={clsx("block text-slate-50 mt-5")}>
             Email:
           </label>
-          <input id='subscribe' className={clsx("block mt-2 bg-transparent border-solid border-2 py-2 px-5 text-slate-50")}/>
+          <input id='subscribe' className={clsx("block mt-2 bg-transparent border-solid border-2 py-2 px-5 text-slate-50", isMini && "w-full")}/>
           <button className={clsx("inline mt-1 text-slate-50 border-solid border-2 py-2 px-5")}>Прійняти</button>
           <p className={clsx("ml-5 inline text-slate-50")}>Thank you!</p>
         </div>

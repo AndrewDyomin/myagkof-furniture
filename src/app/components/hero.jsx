@@ -2,14 +2,25 @@
 
 import clsx from "clsx";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 
 export default function Hero() {
+  
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 768px) and (max-width: 1199px)",
   });
   const isDesktop = useMediaQuery({ query: "(min-width: 1200px)" });
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null
+  }
 
   return (
     <>
