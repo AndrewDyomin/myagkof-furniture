@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import clsx from "clsx";
 import Image from "next/image";
@@ -16,43 +16,45 @@ export default function Header() {
   }, []);
 
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
-  const isTablet = useMediaQuery({ query: "(min-width: 768px) and (max-width: 1199px)" });
+  const isTablet = useMediaQuery({
+    query: "(min-width: 768px) and (max-width: 1199px)",
+  });
   const isDesktop = useMediaQuery({ query: "(min-width: 1200px)" });
 
   const openMenu = () => {
     setIsModalOpen(true);
-    document.body.classList.add('modal-open');
+    document.body.classList.add("modal-open");
   };
 
   const closeMenu = () => {
     setIsModalOpen(false);
-    document.body.classList.remove('modal-open');
+    document.body.classList.remove("modal-open");
   };
 
   const customStyles = {
-    overlay: { 
-        backgroundColor: 'rgba(9, 9, 9, 0.75)',
-        position: 'fixed',
+    overlay: {
+      backgroundColor: "rgba(9, 9, 9, 0.75)",
+      position: "fixed",
     },
     content: {
-      top: '60px',
-      left: 'auto',
-      right: '-135px',
-      bottom: 'auto',
-      transform: 'translateX(-50%)',
-      width: '300px',
-      height: '80%',
-      padding: '24px',
-      borderRadius: '4px',
-      border: '1px solid black',
-      backgroundColor: 'FFF',
-      transition: 'top 0.3s ease-in-out',
-      position: 'absolute',
+      top: "60px",
+      left: "auto",
+      right: "-135px",
+      bottom: "auto",
+      transform: "translateX(-50%)",
+      width: "300px",
+      height: "80%",
+      padding: "24px",
+      borderRadius: "4px",
+      border: "1px solid black",
+      backgroundColor: "FFF",
+      transition: "top 0.3s ease-in-out",
+      position: "absolute",
     },
   };
 
   if (!isClient) {
-    return null;   //TO DO (add loader)
+    return null; //TO DO (add loader)
   }
 
   return (
@@ -68,7 +70,7 @@ export default function Header() {
           <p className={clsx("ml-2.5 font-bold")}>М&apos;якоff</p>
         </a>
         {isMobile ? (
-          <button className={clsx('ml-auto')} onClick={openMenu}>
+          <button className={clsx("ml-auto")} onClick={openMenu}>
             <svg className={clsx("h-8 w-8")}>
               <use href="/icons/sprite.svg#icon-menu"></use>
             </svg>
@@ -142,22 +144,84 @@ export default function Header() {
         style={customStyles}
         ariaHideApp={false}
       >
-        <button className={clsx('ml-auto')} type="button" onClick={closeMenu}>
-            <svg className={clsx('h-8 w-8')}>
-                <use href='./icons/sprite.svg'></use>
+        <div className={clsx('flex flex-col h-full')}>
+          <button
+            className={clsx("block ml-auto")}
+            type="button"
+            onClick={closeMenu}
+          >
+            <svg className={clsx("h-8 w-8")}>
+              <use href="./icons/sprite.svg#icon-close"></use>
             </svg>
-        </button>
-        <ul className={clsx("grid gap-5")}>
-          <li>
-            <Link href="/category" onClick={closeMenu}>Каталог</Link>
-          </li>
-          <li>
-            <Link href="/about-us" onClick={closeMenu}>О нас</Link>
-          </li>
-          <li>
-            <Link href="/contacts" onClick={closeMenu}>Контакты</Link>
-          </li>
-        </ul>
+          </button>
+          <div>
+            <ul className={clsx("grid gap-5")}>
+              <li>
+                <Link href="/category" onClick={closeMenu}>
+                  Catalog
+                </Link>
+              </li>
+              <li>
+                <Link href="/about-us" onClick={closeMenu}>
+                  About us
+                </Link>
+              </li>
+              <li>
+                <Link href="/contacts" onClick={closeMenu}>
+                  Contacts
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className={clsx("mt-auto")}>
+            <ul className={clsx("grid gap-3")}>
+              <li>
+                <Image
+                  src="/icons/user-logo.svg"
+                  width={20}
+                  height={20}
+                  alt="user logo"
+                />
+              </li>
+              <li>
+                <button>Log in</button>
+              </li>
+              <li>
+                <button>Register</button>
+              </li>
+            </ul>
+          </div>
+          <div className={clsx("mt-5")}>
+            <ul className={clsx("flex items-center gap-2.5")}>
+              <li>
+                <a
+                  href="https://www.facebook.com/share/ZndWccuLoUs7WG9U/?mibextid=LQQJ4d"
+                  className={clsx("flex items-center")}
+                >
+                  <Image
+                    src="/icons/facebook.png"
+                    width={25}
+                    height={25}
+                    alt="facebook logo"
+                  />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/myagkof_furniture.ua?igsh=MWZod2gycDRlZTRzcg%3D%3D&utm_source=qr"
+                  className={clsx("flex items-center")}
+                >
+                  <Image
+                    src="/icons/instagram.png"
+                    width={25}
+                    height={25}
+                    alt="instagram logo"
+                  />
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
       </Modal>
     </div>
   );
