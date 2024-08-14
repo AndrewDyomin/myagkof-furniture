@@ -1,5 +1,4 @@
 import clsx from "clsx";
-// import Image from "next/image";
 
 export default function ToCatalogBtns() {
     return (
