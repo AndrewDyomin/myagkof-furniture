@@ -213,10 +213,10 @@ export default function Header() {
                   <div className={clsx("flex flex-col h-full")}>
                     <ul>
                       <li>
-                        <Link href="/category">My Account</Link>
+                        <Link onClick={closeUserMenu} href="/account">My Account</Link>
                       </li>
                       <li className={clsx('mt-3')}>
-                        <Link href="/about-us">My orders</Link>
+                        <Link onClick={closeUserMenu} href="/orders">My orders</Link>
                       </li>
                     </ul>
                     <button 
