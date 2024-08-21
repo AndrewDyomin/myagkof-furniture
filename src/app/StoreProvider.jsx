@@ -1,15 +1,18 @@
-'use client'
-import { useRef } from 'react'
-import { Provider } from 'react-redux'
-import { makeStore } from '../lib/store'
-import { initializeCount } from '../lib/features/counter/counterSlice'
+"use client";
 
-export default function StoreProvider({ children }) {
-  const storeRef = useRef()
-  if (!storeRef.current) {
-    storeRef.current = makeStore()
-    storeRef.current.dispatch(initializeCount(count))
-  }
+import { Provider } from "react-redux";
+import { store } from "./lib/store";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
-  return <Provider store={storeRef.current}>{children}</Provider>
+const persistor = persistStore(store);
+
+export default function ReduxProvider({ children }) {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {children}
+      </PersistGate>
+    </Provider>
+  );
 }

@@ -4,16 +4,24 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import Modal from "react-modal";
+import { Form, Field, Formik } from "formik";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
+import { useDispatch, useSelector } from "react-redux";
+import { logIn, logOut, refreshUser } from '../lib/slices/authSlice'
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn)
+  const user = useSelector((state) => state.auth.user)
   const [isClient, setIsClient] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
-  }, []);
+    dispatch(refreshUser())
+  }, [dispatch]);
 
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const isTablet = useMediaQuery({
@@ -28,6 +36,11 @@ export default function Header() {
 
   const closeMenu = () => {
     setIsModalOpen(false);
+    document.body.classList.remove("modal-open");
+  };
+
+  const closeLoginMenu = () => {
+    setIsLoginModalOpen(false);
     document.body.classList.remove("modal-open");
   };
 
@@ -52,6 +65,35 @@ export default function Header() {
       position: "absolute",
     },
   };
+
+  const logInModalStyles = {
+    overlay: {
+      backgroundColor: "rgba(9, 9, 9, 0.75)",
+      position: "fixed",
+    },
+    content: {
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "70%",
+      height: "300px",
+      padding: "24px",
+      borderRadius: "4px",
+      border: "1px solid black",
+      backgroundColor: "FFF",
+      transition: "top 0.3s ease-in-out",
+      position: "absolute",
+    },
+  }
+
+  const logInHandler = () => {
+    setIsLoginModalOpen(true)
+    document.body.classList.add("modal-open");
+  }
+
+  const logOutHandler = () => {
+    dispatch(logout({isAuth: false}))
+  }
 
   if (!isClient) {
     return null; //TO DO (add loader)
@@ -120,7 +162,18 @@ export default function Header() {
               </a>
             </li>
           </ul>
-          <ul className={clsx("flex ml-auto items-center gap-3")}>
+          {isLoggedIn ? 
+          <div className={clsx('flex ml-auto items-center gap-3')}>
+            <Image
+                src="/icons/user-logo.svg"
+                width={20}
+                height={20}
+                alt="user logo"
+              />
+              <p>{user.name}</p>
+          </div>
+           : 
+           <ul className={clsx('flex ml-auto items-center gap-3')}>
             <li>
               <Image
                 src="/icons/user-logo.svg"
@@ -130,12 +183,12 @@ export default function Header() {
               />
             </li>
             <li>
-              <button>Log in</button>
+              <button onClick={logInHandler}>Log in</button>
             </li>
             <li>
               <button>Register</button>
             </li>
-          </ul>
+          </ul>}
         </div>
       )}
       <Modal
@@ -173,24 +226,35 @@ export default function Header() {
               </li>
             </ul>
           </div>
-          <div className={clsx("mt-auto")}>
-            <ul className={clsx("grid gap-3")}>
-              <li>
-                <Image
-                  src="/icons/user-logo.svg"
-                  width={20}
-                  height={20}
-                  alt="user logo"
-                />
-              </li>
-              <li>
-                <button>Log in</button>
-              </li>
-              <li>
-                <button>Register</button>
-              </li>
-            </ul>
+          {isLoggedIn ? 
+          <div className={clsx('mt-auto grid gap-3')}>
+            <Image
+                src="/icons/user-logo.svg"
+                width={20}
+                height={20}
+                alt="user logo"
+              />
+              <p>{user.name}</p>
           </div>
+           : 
+           <div className={clsx("mt-auto")}>
+           <ul className={clsx("grid gap-3")}>
+             <li>
+               <Image
+                 src="/icons/user-logo.svg"
+                 width={20}
+                 height={20}
+                 alt="user logo"
+               />
+             </li>
+             <li>
+               <button onClick={logInHandler}>Log in</button>
+             </li>
+             <li>
+               <button>Register</button>
+             </li>
+           </ul>
+         </div>}
           <div className={clsx("mt-5")}>
             <ul className={clsx("flex items-center gap-2.5")}>
               <li>
@@ -220,6 +284,64 @@ export default function Header() {
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={isLoginModalOpen}
+        onRequestClose={closeLoginMenu}
+        style={logInModalStyles}
+        ariaHideApp={false}
+      >
+        <div className={clsx('flex flex-col h-full')}>
+          <button
+            className={clsx("block ml-auto")}
+            type="button"
+            onClick={closeLoginMenu}
+          >
+            <svg className={clsx("h-8 w-8")}>
+              <use href="./icons/sprite.svg#icon-close"></use>
+            </svg>
+          </button>
+          <div>
+          <Formik
+            initialValues={{
+              email: '',
+              password: '',
+            }}
+            onSubmit={async (values) => {
+              dispatch(
+                logIn({
+                  email: values.email,
+                  password: values.password,
+                })
+              );
+              setIsLoginModalOpen(false)
+              setIsModalOpen(false)
+            }}
+          >
+            <Form className={clsx('grid')}>
+              <label htmlFor="email">Email</label>
+              <Field
+                id="email"
+                name="email"
+                placeholder="julia@gmail.com"
+                type="email"
+                className={clsx('p-2 text-center rounded border-slate-400 border-2')}
+              />
+              <label htmlFor="password">Password</label>
+              <Field
+                id="password"
+                name="password"
+                type="password"
+                className={clsx('p-2 text-center rounded border-slate-400 border-2')}
+              />
+              <button 
+                type="submit"
+                className={clsx('p-2 text-center rounded bg-slate-400 w-1/2 mx-auto mt-10')}
+              >Submit</button>
+            </Form>
+          </Formik>
           </div>
         </div>
       </Modal>

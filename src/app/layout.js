@@ -3,8 +3,13 @@ import "./globals.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import clsx from "clsx";
+import dynamic from "next/dynamic";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const ReduxProvider = dynamic(() => import("./StoreProvider"), {
+  ssr: false
+});
 
 export const metadata = {
   title: "Myagkof Furniture App",
@@ -15,11 +20,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={clsx(inter.className, 'flex flex-col min-h-[100vh] w-full px-10')}>
-        <Header/>
-        <div>
-          {children}
-        </div>
-        <Footer />
+        <ReduxProvider>
+          <Header/>
+          <div>
+            {children}
+          </div>
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );
