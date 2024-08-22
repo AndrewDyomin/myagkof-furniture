@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Sidebar from "../components/sidebar";
 import axios from 'axios';
-import CategoriesList from "../components/categoriesList";
+import CatalogList from "../components/catalogList";
 
 export default async function Category() {
 
@@ -13,14 +13,16 @@ export default async function Category() {
     }
 
     const modelsArray = await fetchAllModels();
-    
+    const unsortedArray = [];
+    modelsArray.map(model => unsortedArray.push(model.categories))
+    const categoriesArray = Array.from(new Set(unsortedArray));
 
     return (
         <>
             <h1 className={clsx('text-center text-5xl')}>All products</h1>
             <div className={clsx('grid grid-cols-2 mt-16')}>
-                <Sidebar />
-                <CategoriesList array={await fetchAllModels()} />
+                <Sidebar array={categoriesArray.sort()}/>
+                <CatalogList array={await fetchAllModels()} />
             </div>
         </>
     )
