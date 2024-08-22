@@ -20,7 +20,7 @@ export default async function Category() {
     return (
         <>
             <h1 className={clsx('text-center text-5xl')}>All products</h1>
-            <div className={clsx('grid grid-cols-2 mt-16')}>
+            <div className={clsx('flex gap-10 mt-16')}>
                 <Sidebar array={categoriesArray.sort()}/>
                 <CatalogList array={await fetchAllModels()} />
             </div>
