@@ -87,6 +87,7 @@ export default function Header() {
       left: "50%",
       transform: "translate(-50%, -50%)",
       width: "70%",
+      maxWidth: "450px",
       height: "300px",
       padding: "24px",
       borderRadius: "4px",
@@ -290,7 +291,9 @@ export default function Header() {
                 height={20}
                 alt="user logo"
               />
+              <Link onClick={closeMenu} href="/account">
               <p>{user.name}</p>
+              </Link>
             </div>
           ) : (
             <div className={clsx("mt-auto")}>

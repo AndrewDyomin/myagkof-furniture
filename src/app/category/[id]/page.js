@@ -1,4 +1,5 @@
-import Carousel from "@/app/components/carousel";
+import { FullScreenCarousel } from "@/app/components/fullScreenCarousel";
+import AdminMenu from "@/app/components/adminMenu"
 import axios from "axios";
 import clsx from "clsx";
 
@@ -22,27 +23,30 @@ export async function generateStaticParams() {
 export default async function Page({ params }) {
   const models = await fetchAllModels();
   const model = models.find((i) => i._id === params.id);
-  const family = models.filter((i) => i.family === model.family);
+  // const family = models.filter((i) => i.family === model.family);
 
   const images = [];
-  model.images.forEach(i => images.push(`https://lh3.googleusercontent.com/d/${i}=w800?authuser=0`))
+  model.images.forEach((i) =>
+    images.push(`https://lh3.googleusercontent.com/d/${i}=w800?authuser=0`)
+  );
 
   return (
     <div className={clsx("mt-10")}>
       <div className={clsx("flex gap-10")}>
-        <div className={clsx("w-72 h-72 border-black border-2", "slider-container")}>
-          {/* <Carousel images={images} /> */}
+        <div className={clsx("w-[800px] max-w-[80%]", "slider-container")}>
+          <FullScreenCarousel images={images} />
         </div>
         <div>
           <h1 className={clsx("text-4xl font-semibold")}>{model.name}</h1>
-          <p className={clsx("text-2xl font-light mt-16")}>
-            Price {model.price},00₴
-          </p>
-          <p className={clsx("text-2xl font-light mt-16")}>Size {model.size}</p>
+          <p className={clsx("text-2xl font-light mt-16")}>Price</p>
+          <p className={clsx("text-2xl font-light")}>{model.price},00₴</p>
+          <p className={clsx("text-2xl font-light mt-16")}>Size</p>
+          <p className={clsx("text-2xl font-light")}>{model.size}</p>
         </div>
       </div>
       <p className={clsx("text-2xl font-light mt-8")}>Description</p>
-      <p>{model.description}</p>
+      <p className={clsx("text-l font-light mb-8")}>{model.description}</p>
+      <AdminMenu model={model}/>
     </div>
   );
 }
