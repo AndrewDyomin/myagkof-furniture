@@ -1,18 +1,23 @@
+"use client"
+
 import clsx from "clsx";
 import Sidebar from "../components/sidebar";
 import axios from 'axios';
 import CatalogList from "../components/catalogList";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAll } from "../lib/slices/modelsSlice";
 
-export default async function Category() {
+export default function Category() {
 
     axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
+    const dispatch = useDispatch();
 
-    const fetchAllModels = async () => {
-        const res = await axios.get('models/all');
-        return res.data.array;
-    }
+    useEffect(() => {
+        dispatch(getAll())
+    }, [])
 
-    const modelsArray = await fetchAllModels();
+    const modelsArray = useSelector(state => state.models.array)
     const unsortedArray = [];
     modelsArray.map(model => unsortedArray.push(model.categories))
     const categoriesArray = Array.from(new Set(unsortedArray));
@@ -22,7 +27,7 @@ export default async function Category() {
             <h1 className={clsx('text-center text-5xl')}>All products</h1>
             <div className={clsx('flex gap-10 mt-16')}>
                 <Sidebar array={categoriesArray.sort()}/>
-                <CatalogList array={await fetchAllModels()} />
+                <CatalogList array={modelsArray} />
             </div>
         </>
     )

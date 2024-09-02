@@ -5,13 +5,6 @@ import Carousel from "./carousel";
 import Fancybox from "./fancybox";
 
 export default function CatalogList({ array }) {
-  const imagesArray = (images) => {
-    let array = [];
-    images.forEach((i) =>
-      array.push(`https://lh3.googleusercontent.com/d/${i}=w800?authuser=0`)
-    );
-    return array;
-  };
 
   return (
     <>
@@ -23,7 +16,7 @@ export default function CatalogList({ array }) {
                 options={{
                   Carousel: {
                     infinite: false,
-                  zoom: false,
+                    zoom: false,
                   },
                 }}
               >

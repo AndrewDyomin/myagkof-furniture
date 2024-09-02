@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, persistReducer } from "redux-persist";
-import authReducer from "./slices/authSlice";
+import authSlice from "./slices/authSlice";
+import modelsSlice from "./slices/modelsSlice";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import refreshTokenMiddleware from "./refreshTokenMiddleware";
 
@@ -31,7 +32,8 @@ const authPersistConfig = {
 
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(authPersistConfig, authReducer),
+    auth: persistReducer(authPersistConfig, authSlice),
+    models: modelsSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
