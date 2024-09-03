@@ -14,7 +14,7 @@ export default function Category() {
 
   useEffect(() => {
     dispatch(getAll());
-  }, []);
+  }, [dispatch]);
 
   const filter = useSelector(state => state.filter)
 

@@ -55,15 +55,15 @@ export const getOne = createAsyncThunk(
 
 export const remove = createAsyncThunk(
   'models/remove', 
-  async (_id, thunkAPI) => {
+  async (id, thunkAPI) => {
   try {
-    axios.delete('/collections/remove', {
-      data: credentials,
+    await axios.delete('/models/remove', {
+      data: { id },
       headers: {
         'Content-Type': 'application/json'
       }});
-      const res = thunkAPI.dispatch(getAll());
-      return res;
+      const res = await thunkAPI.dispatch(getAll());
+      return res.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
   }
@@ -98,7 +98,7 @@ export const modelSlice = createSlice({
         state.current = action.payload.model;
       })
       .addCase(remove.fulfilled, (state, action) => {
-        state.array = action.payload;
+        // state.array = action.payload;
       })
       .addCase(remove.rejected, (state, action) => {
         state.error = action.payload;

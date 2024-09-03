@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
@@ -10,6 +10,14 @@ const setAuthHeader = token => {
 
 const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
+};
+
+const setAuthCookies = (bool) => {
+  Cookies.set('isLoggedIn', bool, { expires: 7, secure: true, sameSite: 'Strict' });
+};
+
+const clearAuthCookies = () => {
+  Cookies.remove('isLoggedIn');
 };
 
 const initialState = {
@@ -91,21 +99,25 @@ export const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        setAuthCookies(true);
       })
       .addCase(logIn.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        setAuthCookies(true);
       })
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
+        setAuthCookies(false);
       })
       .addCase(logOut.rejected, state => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
+        clearAuthCookies();
       })
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
@@ -114,10 +126,12 @@ export const authSlice = createSlice({
         state.user = action.payload.user;
         state.isLoggedIn = true;
         state.isRefreshing = false;
+        setAuthCookies(true);
       })
       .addCase(refreshUser.rejected, state => {
         state.isLoggedIn = false;
         state.isRefreshing = false;
+        setAuthCookies(false);
       });
   },
 });

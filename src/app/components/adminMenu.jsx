@@ -6,6 +6,8 @@ import { Field, FieldArray, Form, Formik } from "formik";
 import clsx from "clsx";
 import { useState } from "react";
 import axios from "axios";
+import { remove } from "../lib/slices/modelsSlice";
+import Link from "next/link";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -15,6 +17,7 @@ export default function AdminMenu({ model }) {
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   const handleFileChange = (event) => {
     setSelectedFiles([...event.target.files]);
@@ -41,12 +44,37 @@ export default function AdminMenu({ model }) {
     },
   };
 
+  const deleteMenuStyles = {
+    overlay: {
+      backgroundColor: "rgba(9, 9, 9, 0.75)",
+      position: "fixed",
+    },
+    content: {
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: "70%",
+      maxWidth: "450px",
+      height: "35%",
+      maxHeight: "200px",
+      padding: "24px",
+      borderRadius: "4px",
+      border: "1px solid black",
+      backgroundColor: "FFF",
+      transition: "top 0.3s ease-in-out",
+      position: "absolute",
+      display: "flex",
+      flexDirection: "column",
+      gap: "20px",
+    },
+  };
+
   return (
     <>
       {user.description === "administrator" && (
         <div>
           <button onClick={() => setIsEditOpen(true)}>Edit</button>
-          <button>Delete</button>
+          <button onClick={() => setIsDeleteOpen(true)}>Delete</button>
           <Modal
             isOpen={isEditOpen}
             onRequestClose={() => setIsEditOpen(false)}
@@ -174,16 +202,18 @@ export default function AdminMenu({ model }) {
                 <div className={clsx("mb-3.5")}>
                   <FieldArray
                     name="images"
-                    render={arrayHelpers => (
-                      <div className={clsx(
-                        "w-full p-2 border-2 border-[#ccc] rounded"
-                      )}>
+                    render={(arrayHelpers) => (
+                      <div
+                        className={clsx(
+                          "w-full p-2 border-2 border-[#ccc] rounded"
+                        )}
+                      >
                         {arrayHelpers.form.values.images.map((image, index) => (
-                          <div key={index} className={clsx('flex flex-wrap')}>
-                            <img 
-                                src={`https://lh3.googleusercontent.com/d/${image}=w800?authuser=0`} 
-                                alt={image} 
-                                width={'200px'} 
+                          <div key={index} className={clsx("flex flex-wrap")}>
+                            <img
+                              src={`https://lh3.googleusercontent.com/d/${image}=w800?authuser=0`}
+                              alt={image}
+                              width={"200px"}
                             />
                             <button
                               className={clsx(
@@ -192,7 +222,7 @@ export default function AdminMenu({ model }) {
                               type="button"
                               onClick={() => arrayHelpers.remove(index)}
                             >
-                            delete
+                              delete
                             </button>
                           </div>
                         ))}
@@ -218,6 +248,37 @@ export default function AdminMenu({ model }) {
                 </button>
               </Form>
             </Formik>
+          </Modal>
+          <Modal
+            isOpen={isDeleteOpen}
+            onRequestClose={() => setIsEditOpen(false)}
+            style={deleteMenuStyles}
+            ariaHideApp={false}
+          >
+            <p className={clsx("mx-auto")}>Are you shure???</p>
+            <div className={clsx("flex gap-5 mt-auto")}>
+              <button
+                className={clsx(
+                  "w-1/2 border-2 border-slate-500 rounded py-2 px-5"
+                )}
+                onClick={() => setIsDeleteOpen(false)}
+              >
+                Cancel
+              </button>
+              <Link
+                href={"/category"}
+                className={clsx(
+                  "w-1/2 border-2 border-slate-500 rounded bg-rose-200"
+                )}
+              >
+                <button
+                  className={clsx("w-full py-2 px-5")}
+                  onClick={() => dispatch(remove(model._id))}
+                >
+                  Delete
+                </button>
+              </Link>
+            </div>
           </Modal>
         </div>
       )}
