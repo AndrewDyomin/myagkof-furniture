@@ -8,9 +8,9 @@ export default function CatalogList({ array }) {
 
   return (
     <>
-      <ul className={clsx("flex gap-8 flex-wrap")}>
+      <ul className={clsx("flex gap-8 flex-wrap mb-10")}>
         {array.map((item) => (
-          <li key={item._id} className={clsx("w-72")}>
+          <li key={item._id} className={clsx("w-72 catalog-item")}>
             <Link href={`/category/${item._id}`}>
               <Fancybox
                 options={{

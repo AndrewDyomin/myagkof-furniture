@@ -5,6 +5,7 @@ import clsx from "clsx";
 import Select from "react-select";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -14,6 +15,7 @@ export default function CreateModel() {
     label: "Sofa",
   });
   const [selectedFiles, setSelectedFiles] = useState("");
+  const [isPending, setIsPending] = useState("");
 
   const categories = [
     { value: "sofa", label: "Sofa" },
@@ -42,6 +44,7 @@ export default function CreateModel() {
         }}
         onSubmit={async (values, { resetForm }) => {
           try {
+            setIsPending(true);
             const formData = new FormData();
             formData.append("categories", selectedCategories.value);
             formData.append("name", values.name);
@@ -58,6 +61,8 @@ export default function CreateModel() {
                 "Content-Type": "multipart/form-data",
               },
             });
+            setIsPending(false);
+            setSelectedFiles('')
             resetForm();
           } catch (error) {
             console.log(error);
@@ -142,7 +147,11 @@ export default function CreateModel() {
             />
           </div>
           <button type="submit" className={clsx("")}>
-            Submit
+          {isPending ? (
+            <PropagateLoader color="#5f747c" />
+          ) : (
+              'Submit'
+          )}
           </button>
         </Form>
       </Formik>

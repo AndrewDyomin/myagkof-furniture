@@ -1,9 +1,9 @@
 "use client";
 
 import clsx from "clsx";
-import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
+import sha256 from 'crypto-js/sha256';
 
 export default function UserInfo() {
   const user = useSelector((state) => state.auth.user);
@@ -11,8 +11,8 @@ export default function UserInfo() {
   return (
     <div>
         <div className={clsx("border-2 border-black p-5")}>
-        <Image
-            src={`/${user.email}`}
+        <img
+            src={`https://www.gravatar.com/avatar/${sha256( `${user.email}` )}`}
             width={100}
             height={100}
             alt="user avatar"

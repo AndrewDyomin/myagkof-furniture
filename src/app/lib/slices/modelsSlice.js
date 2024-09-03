@@ -86,7 +86,7 @@ export const update = createAsyncThunk(
     }
   });
 
-export const authSlice = createSlice({
+export const modelSlice = createSlice({
   name: 'models',
   initialState,
   extraReducers: builder => {
@@ -112,4 +112,4 @@ export const authSlice = createSlice({
   },
 });
 
-export default authSlice.reducer;
+export default modelSlice.reducer;

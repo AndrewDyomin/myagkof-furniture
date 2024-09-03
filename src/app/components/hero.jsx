@@ -4,9 +4,12 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
+import { changeFilter } from "../lib/slices/filterSlice";
+import { useDispatch } from "react-redux";
 
 export default function Hero() {
   
+  const dispatch = useDispatch()
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 768px) and (max-width: 1199px)",
@@ -38,6 +41,7 @@ export default function Hero() {
           </p>
           <Link href='/category'>
             <button
+              onClick={() => dispatch(changeFilter(''))}
               className={clsx(
                 "border-solid border-2 rounded-md py-1 px-5 text-white mt-5 block mx-auto"
               )}

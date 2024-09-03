@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, logOut, refreshUser } from "../lib/slices/authSlice";
+import { changeFilter } from "../lib/slices/filterSlice";
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -150,7 +151,7 @@ export default function Header() {
           </button>
         ) : (
           <ul className={clsx("flex ml-auto items-center gap-3")}>
-            <li>
+            <li onClick={() => dispatch(changeFilter(''))}>
               <Link href="/category">Каталог</Link>
             </li>
             <li>
