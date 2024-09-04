@@ -6,10 +6,12 @@ import { useState, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 import { changeFilter } from "../lib/slices/filterSlice";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
   
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 768px) and (max-width: 1199px)",
@@ -34,10 +36,10 @@ export default function Hero() {
       >
         <div className={clsx(!isMobile && 'w-1/3', "py-10 px-10 bg-neutral-700/90")}>
           <h1 className={clsx(isMobile && "text-2xl", isTablet && "text-4xl", isDesktop && "text-5xl", "text-center text-white")}>
-            Comfort you can rely on
+            {t('hero title')}
           </h1>
           <p className={clsx("text-center mt-5 text-white")}>
-            Production of upholstered furniture to order
+            {t('production of upholstered furniture to order')}
           </p>
           <Link href='/category'>
             <button
@@ -46,7 +48,7 @@ export default function Hero() {
                 "border-solid border-2 rounded-md py-1 px-5 text-white mt-5 block mx-auto"
               )}
             >
-              Catalog
+              {t('catalog')}
             </button>
           </Link>
         </div>

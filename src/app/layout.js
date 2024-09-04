@@ -4,6 +4,7 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
+import I18n from "./components/i18n";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,9 +30,11 @@ export default function RootLayout({ children }) {
         className={clsx(inter.className, "flex flex-col min-h-[100vh] w-full")}
       >
         <ReduxProvider>
-          <Header />
-          <div>{children}</div>
-          <Footer />
+          <I18n>
+            <Header />
+            <div>{children}</div>
+            <Footer />
+          </I18n>
         </ReduxProvider>
       </body>
     </html>

@@ -10,9 +10,12 @@ import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, logOut, refreshUser } from "../lib/slices/authSlice";
 import { changeFilter } from "../lib/slices/filterSlice";
+import LanguageSelector from "./languageSelector";
+import { useTranslation } from "react-i18next";
 
 export default function Header() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const user = useSelector((state) => state.auth.user);
   const [isClient, setIsClient] = useState(false);
@@ -101,7 +104,7 @@ export default function Header() {
 
   const userMenuStyles = {
     overlay: {
-      backgroundColor: 'transparent',
+      backgroundColor: "transparent",
       position: "absolute",
       top: "70px",
     },
@@ -124,7 +127,7 @@ export default function Header() {
 
   const logOutHandler = () => {
     dispatch(logOut({ isAuth: false }));
-    closeUserMenu()
+    closeUserMenu();
   };
 
   if (!isClient) {
@@ -151,14 +154,14 @@ export default function Header() {
           </button>
         ) : (
           <ul className={clsx("flex ml-auto items-center gap-3")}>
-            <li onClick={() => dispatch(changeFilter(''))}>
-              <Link href="/category">Каталог</Link>
+            <li onClick={() => dispatch(changeFilter(""))}>
+              <Link href="/category">{t('catalog')}</Link>
             </li>
             <li>
-              <Link href="/about-us">О нас</Link>
+              <Link href="/about-us">{t('about us')}</Link>
             </li>
             <li>
-              <Link href="/contacts">Контакты</Link>
+              <Link href="/contacts">{t('contacts')}</Link>
             </li>
           </ul>
         )}
@@ -196,13 +199,14 @@ export default function Header() {
           </ul>
           {isLoggedIn ? (
             <div className={clsx("flex ml-auto items-center gap-3")}>
+              <LanguageSelector />
               <Image
                 src="/icons/user-logo.svg"
                 width={20}
                 height={20}
                 alt="user logo"
               />
-              <div className={clsx('relative')}>
+              <div className={clsx("relative")}>
                 <button onClick={openUserMenu}>
                   <p>{user.name}</p>
                 </button>
@@ -215,22 +219,31 @@ export default function Header() {
                   <div className={clsx("flex flex-col h-full")}>
                     <ul>
                       <li>
-                        <Link onClick={closeUserMenu} href="/account">My Account</Link>
+                        <Link onClick={closeUserMenu} href="/account">
+                          {t('my account')}
+                        </Link>
                       </li>
-                      <li className={clsx('mt-3')}>
-                        <Link onClick={closeUserMenu} href="/orders">My orders</Link>
+                      <li className={clsx("mt-3")}>
+                        <Link onClick={closeUserMenu} href="/orders">
+                          {t('my orders')}
+                        </Link>
                       </li>
                     </ul>
-                    <button 
-                      className={clsx('mt-auto border-2 rounded')}
+                    <button
+                      className={clsx("mt-auto border-2 rounded")}
                       onClick={logOutHandler}
-                    >Log Out</button>
+                    >
+                      {('log out')}
+                    </button>
                   </div>
                 </Modal>
               </div>
             </div>
           ) : (
             <ul className={clsx("flex ml-auto items-center gap-3")}>
+              <li>
+                <LanguageSelector />
+              </li>
               <li>
                 <Image
                   src="/icons/user-logo.svg"
@@ -240,10 +253,10 @@ export default function Header() {
                 />
               </li>
               <li>
-                <button onClick={logInHandler}>Log in</button>
+                <button onClick={logInHandler}>{t('log in')}</button>
               </li>
               <li>
-                <button>Register</button>
+                <button>{t('register')}</button>
               </li>
             </ul>
           )}
@@ -269,17 +282,17 @@ export default function Header() {
             <ul className={clsx("grid gap-5")}>
               <li>
                 <Link href="/category" onClick={closeMenu}>
-                  Catalog
+                  {t('catalog')}
                 </Link>
               </li>
               <li>
                 <Link href="/about-us" onClick={closeMenu}>
-                  About us
+                  {t('about us')}
                 </Link>
               </li>
               <li>
                 <Link href="/contacts" onClick={closeMenu}>
-                  Contacts
+                  {t('contacts')}
                 </Link>
               </li>
             </ul>
@@ -293,7 +306,7 @@ export default function Header() {
                 alt="user logo"
               />
               <Link onClick={closeMenu} href="/account">
-              <p>{user.name}</p>
+                <p>{user.name}</p>
               </Link>
             </div>
           ) : (
@@ -308,14 +321,17 @@ export default function Header() {
                   />
                 </li>
                 <li>
-                  <button onClick={logInHandler}>Log in</button>
+                  <button onClick={logInHandler}>{t('log in')}</button>
                 </li>
                 <li>
-                  <button>Register</button>
+                  <button>{t('register')}</button>
                 </li>
               </ul>
             </div>
           )}
+          <div className="w-[90px] mt-5">
+            <LanguageSelector />
+          </div>
           <div className={clsx("mt-5")}>
             <ul className={clsx("flex items-center gap-2.5")}>
               <li>
