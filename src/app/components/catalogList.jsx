@@ -8,7 +8,7 @@ export default function CatalogList({ array }) {
 
   return (
     <>
-      <ul className={clsx("flex gap-8 flex-wrap mb-10")}>
+      <ul className={clsx("flex gap-8 flex-wrap mb-10 catalog-list")}>
         {array.map((item) => (
           <li key={item._id} className={clsx("w-72 catalog-item")}>
             <Link href={`/category/${item._id}`}>
@@ -33,8 +33,8 @@ export default function CatalogList({ array }) {
                     >
                       <img
                         src={`https://lh3.googleusercontent.com/d/${i}=w800?authuser=0`}
-                        width={400}
-                        height={300}
+                        width={'100%'}
+                        height={'auto'}
                         alt={`${item.name} ${item._id}`}
                       />
                     </div>

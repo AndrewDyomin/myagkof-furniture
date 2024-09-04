@@ -6,9 +6,9 @@ import UserInfo from "../components/userInfo";
 export default function Layout({ children }) {
 
   return (
-    <div className={clsx("flex px-10 mt-10")}>
+    <div className={clsx("flex gap-8 px-10 mt-10 admin-wrapper")}>
       <UserInfo />
-      <div className={clsx("ml-8 p-8 border-2 border-black w-full")}>
+      <div className={clsx("p-8 border-2 border-black w-full")}>
         {children}
       </div>
     </div>

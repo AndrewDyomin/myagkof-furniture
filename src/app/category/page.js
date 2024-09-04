@@ -28,8 +28,8 @@ export default function Category() {
 
   return (
     <>
-      <h1 className={clsx("text-center text-5xl")}>All products</h1>
-      <div className={clsx("flex gap-10 mt-16")}>
+      <h1 className={clsx("text-center text-5xl")}>{filter === '' ? 'All products' : `${filter.charAt(0).toUpperCase() + filter.slice(1)}s`}</h1>
+      <div className={clsx("catalog-wrapper")}>
         <Sidebar array={categoriesArray.sort()}/>
         <CatalogList array={filteredArray} />
       </div>

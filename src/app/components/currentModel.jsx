@@ -12,7 +12,7 @@ export default function CurrentModel({ id }) {
 
   useEffect(() => {
     dispatch(getAll());
-  }, [id]);
+  }, [dispatch, id]);
 
   const modelsArray = useSelector((state) => state.models.array);
   const model = modelsArray.find((i) => i._id === id)
@@ -25,8 +25,8 @@ export default function CurrentModel({ id }) {
 
     return (
       <>
-        <div className={clsx("flex gap-10")}>
-          <div className={clsx("w-[800px] max-w-[80%]", "slider-container")}>
+        <div className={clsx("flex gap-10 current-model-wrapper")}>
+          <div className={clsx("slider-container")}>
             <FullScreenCarousel images={images} />
           </div>
           <div>
