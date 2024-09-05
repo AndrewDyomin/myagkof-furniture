@@ -65,7 +65,7 @@ export default function Sidebar({ array }) {
                   dispatch(changeFilter(item));
                 }}
               >
-                {item.charAt(0).toUpperCase() + item.slice(1)}
+                {t(`${item}`)}
               </button>
             </li>
           ))}
