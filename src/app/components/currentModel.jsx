@@ -6,9 +6,11 @@ import clsx from "clsx";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAll } from "../lib/slices/modelsSlice";
+import { useTranslation } from "react-i18next";
 
 export default function CurrentModel({ id }) {
   const dispatch = useDispatch();
+  const { t } = useTranslation()
 
   useEffect(() => {
     dispatch(getAll());
@@ -31,13 +33,13 @@ export default function CurrentModel({ id }) {
           </div>
           <div>
             <h1 className={clsx("text-4xl font-semibold")}>{model.name}</h1>
-            <p className={clsx("text-2xl font-light mt-16")}>Price</p>
+            <p className={clsx("text-2xl font-light mt-16")}>{t('price from')}</p>
             <p className={clsx("text-2xl font-light")}>{model.price},00₴</p>
-            <p className={clsx("text-2xl font-light mt-16")}>Size</p>
+            <p className={clsx("text-2xl font-light mt-16")}>{t('size')}</p>
             <p className={clsx("text-2xl font-light")}>{model.size}</p>
           </div>
         </div>
-        <p className={clsx("text-2xl font-light mt-8")}>Description</p>
+        <p className={clsx("text-2xl font-light mt-8")}>{t('description')}</p>
         <p className={clsx("text-l font-light mb-8")}>{model.description}</p>
         <AdminMenu model={model} />
       </>

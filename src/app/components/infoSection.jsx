@@ -6,8 +6,10 @@ import Woman from "../../../public/images/woman-interior.webp"
 import clsx from "clsx";
 import { useMediaQuery } from "react-responsive";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function InfoSection() {
+  const { t } = useTranslation()
 
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
   const [isClient, setIsClient] = useState(false);
@@ -23,8 +25,10 @@ export default function InfoSection() {
   return (
     <div className={clsx(!isMobile && 'grid grid-cols-2', 'mt-10 mb-10')}>
       <div className={clsx(!isMobile && 'border-r-solid border-r-2 border-neutral-400 p-5')}>
-        <h3 className={clsx('text-2xl font-light')}>Затишна вишуканість</h3>
-        <p className={clsx('mt-3 mb-3')}>Місія нашої компанії полягає в створенні та постачанні високоякісних меблів, що надають комфорт, стиль та естетичну насолоду нашим клієнтам. Ми прагнемо створювати інноваційні та функціональні рішення, які відповідають сучасним вимогам життя та виражають унікальний характер кожного клієнта</p>
+        <h3 className={clsx('text-2xl font-light')}>{t('cozy sophistication')}</h3>
+        <p className={clsx('mt-3 mb-3')}>
+          {t('cozy sophistication block')}
+        </p>
         <Image 
             src={SoftCouch} 
             alt="Soft couch" 
@@ -43,8 +47,8 @@ export default function InfoSection() {
                 height: 'auto',
               }}
         />
-        <h3 className={clsx('text-2xl font-light mt-5')}>Користь для клієнтів</h3>
-        <p className={clsx('mt-3')}>Bиробництво меблів, які надають високий рівень комфорту і естетично відповідають потребам клієнтів. М&apos;які меблі створюють затишне середовище вдома чи в офісі, дозволяють споживачам відпочивати та розслаблятися. Наша продукція відіграє важливу роль у визначенні стилю та дизайну приміщення. Вона може бути як функціональним елементом, так і декоративним акцентом, додаючи естетичну цінність інтер&apos;єру.</p>
+        <h3 className={clsx('text-2xl font-light mt-5')}>{t('benefits for customers')}</h3>
+        <p className={clsx('mt-3')}>{t('benefits for customers block')}</p>
       </div>
     </div>
   );

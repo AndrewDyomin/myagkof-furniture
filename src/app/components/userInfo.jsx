@@ -4,9 +4,11 @@ import clsx from "clsx";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import sha256 from "crypto-js/sha256";
+import { useTranslation } from "react-i18next";
 
 export default function UserInfo() {
   const user = useSelector((state) => state.auth.user);
+  const { t } = useTranslation();
 
   return (
     <div className="user-info-wrapper">
@@ -18,19 +20,19 @@ export default function UserInfo() {
           alt="user avatar"
         />
         <p className={clsx("text-2xl")}>{user.name}</p>
-        <p>{user.description}</p>
+        <p className={clsx("text-center")}>{t(`${user.description}`)}</p>
       </div>
       <div className={clsx("border-2 border-black p-5 mt-4")}>
         <ul>
           <li>
-            <Link href="/account">My Account</Link>
+            <Link href="/account">{t('my account')}</Link>
           </li>
           <li className={clsx("mt-3")}>
-            <Link href="/orders">My Orders</Link>
+            <Link href="/orders">{t('my orders')}</Link>
           </li>
           {user.description === "administrator" && (
             <li className={clsx("mt-3")}>
-              <Link href="/create-model">Add Model</Link>
+              <Link href="/create-model">{t('add model')}</Link>
             </li>
           )}
         </ul>

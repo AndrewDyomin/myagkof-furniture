@@ -233,7 +233,7 @@ export default function Header() {
                       className={clsx("mt-auto border-2 rounded")}
                       onClick={logOutHandler}
                     >
-                      {('log out')}
+                      {t('log out')}
                     </button>
                   </div>
                 </Modal>

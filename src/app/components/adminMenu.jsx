@@ -8,16 +8,20 @@ import { useState } from "react";
 import axios from "axios";
 import { remove } from "../lib/slices/modelsSlice";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export default function AdminMenu({ model }) {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isPending, setIsPending] = useState("");
 
   const handleFileChange = (event) => {
     setSelectedFiles([...event.target.files]);
@@ -72,9 +76,19 @@ export default function AdminMenu({ model }) {
   return (
     <>
       {user.description === "administrator" && (
-        <div>
-          <button onClick={() => setIsEditOpen(true)}>Edit</button>
-          <button onClick={() => setIsDeleteOpen(true)}>Delete</button>
+        <div className="flex gap-3 mb-5">
+          <button
+            onClick={() => setIsEditOpen(true)}
+            className="border-2 rounded border-slate-500 px-2"
+          >
+            {t("edit")}
+          </button>
+          <button
+            onClick={() => setIsDeleteOpen(true)}
+            className="border-2 rounded border-red-400 px-2"
+          >
+            {t("delete")}
+          </button>
           <Modal
             isOpen={isEditOpen}
             onRequestClose={() => setIsEditOpen(false)}
@@ -94,6 +108,7 @@ export default function AdminMenu({ model }) {
               }}
               onSubmit={async (values, { resetForm }) => {
                 try {
+                  setIsPending(true);
                   const formData = new FormData();
                   formData.append("_id", model._id);
                   formData.append("categories", values.category);
@@ -115,6 +130,7 @@ export default function AdminMenu({ model }) {
                     },
                   });
                   resetForm();
+                  setIsPending(false);
                   setIsEditOpen(false);
                 } catch (error) {
                   console.log(error);
@@ -123,7 +139,7 @@ export default function AdminMenu({ model }) {
             >
               <Form className={clsx("flex flex-col max-w-96")}>
                 <div className={clsx("mb-3.5")}>
-                  <label htmlFor="category">Category</label>
+                  <label htmlFor="category">{t("category")}</label>
                   <Field
                     className={clsx(
                       "w-full p-2 border-2 border-[#ccc] rounded"
@@ -134,7 +150,7 @@ export default function AdminMenu({ model }) {
                   />
                 </div>
                 <div className={clsx("mb-3.5")}>
-                  <label htmlFor="family">Family</label>
+                  <label htmlFor="family">{t("family")}</label>
                   <Field
                     className={clsx(
                       "w-full p-2 border-2 border-[#ccc] rounded"
@@ -145,7 +161,7 @@ export default function AdminMenu({ model }) {
                   />
                 </div>
                 <div className={clsx("mb-3.5")}>
-                  <label htmlFor="name">Name</label>
+                  <label htmlFor="name">{t("name")}</label>
                   <Field
                     className={clsx(
                       "w-full p-2 border-2 border-[#ccc] rounded"
@@ -156,7 +172,7 @@ export default function AdminMenu({ model }) {
                   />
                 </div>
                 <div className={clsx("mb-3.5")}>
-                  <label htmlFor="size">Size</label>
+                  <label htmlFor="size">{t("size")}</label>
                   <Field
                     className={clsx(
                       "w-full p-2 border-2 border-[#ccc] rounded"
@@ -167,7 +183,7 @@ export default function AdminMenu({ model }) {
                   />
                 </div>
                 <div className={clsx("mb-3.5")}>
-                  <label htmlFor="sleepingArea">Sleeping area</label>
+                  <label htmlFor="sleepingArea">{t("sleeping area")}</label>
                   <Field
                     className={clsx(
                       "w-full p-2 border-2 border-[#ccc] rounded"
@@ -178,7 +194,7 @@ export default function AdminMenu({ model }) {
                   />
                 </div>
                 <div className={clsx("mb-3.5")}>
-                  <label htmlFor="description">Description</label>
+                  <label htmlFor="description">{t("description")}</label>
                   <Field
                     className={clsx(
                       "w-full p-2 border-2 border-[#ccc] rounded"
@@ -189,7 +205,7 @@ export default function AdminMenu({ model }) {
                   />
                 </div>
                 <div className={clsx("mb-3.5")}>
-                  <label htmlFor="basePrice">Base price</label>
+                  <label htmlFor="basePrice">{t("base price")}</label>
                   <Field
                     className={clsx(
                       "w-full p-2 border-2 border-[#ccc] rounded"
@@ -205,7 +221,7 @@ export default function AdminMenu({ model }) {
                     render={(arrayHelpers) => (
                       <div
                         className={clsx(
-                          "w-full p-2 border-2 border-[#ccc] rounded"
+                          "w-full p-2 border-2 border-[#ccc] rounded flex flex-col gap-2"
                         )}
                       >
                         {arrayHelpers.form.values.images.map((image, index) => (
@@ -222,7 +238,7 @@ export default function AdminMenu({ model }) {
                               type="button"
                               onClick={() => arrayHelpers.remove(index)}
                             >
-                              delete
+                              {t("delete")}
                             </button>
                           </div>
                         ))}
@@ -231,7 +247,7 @@ export default function AdminMenu({ model }) {
                   />
                 </div>
                 <div className={clsx("mb-3.5")}>
-                  <label htmlFor="files">Add images</label>
+                  <label htmlFor="files">{t("add images")}</label>
                   <Field
                     className={clsx(
                       "w-full p-2 border-2 border-[#ccc] rounded"
@@ -243,8 +259,15 @@ export default function AdminMenu({ model }) {
                     multiple
                   />
                 </div>
-                <button type="submit" className={clsx("")}>
-                  Submit
+                <button
+                  type="submit"
+                  className={clsx("p-2 border-2 border-[#ccc] rounded")}
+                >
+                  {isPending ? (
+                    <PropagateLoader color="#5f747c" />
+                  ) : (
+                    t("submit")
+                  )}
                 </button>
               </Form>
             </Formik>
@@ -255,7 +278,7 @@ export default function AdminMenu({ model }) {
             style={deleteMenuStyles}
             ariaHideApp={false}
           >
-            <p className={clsx("mx-auto")}>Are you shure???</p>
+            <p className={clsx("mx-auto text-2xl")}>{t('are you shure')}???</p>
             <div className={clsx("flex gap-5 mt-auto")}>
               <button
                 className={clsx(
@@ -263,7 +286,7 @@ export default function AdminMenu({ model }) {
                 )}
                 onClick={() => setIsDeleteOpen(false)}
               >
-                Cancel
+                {t('cancel')}
               </button>
               <Link
                 href={"/category"}
@@ -275,7 +298,7 @@ export default function AdminMenu({ model }) {
                   className={clsx("w-full py-2 px-5")}
                   onClick={() => dispatch(remove(model._id))}
                 >
-                  Delete
+                  {t('delete')}
                 </button>
               </Link>
             </div>

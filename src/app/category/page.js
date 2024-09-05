@@ -7,10 +7,12 @@ import CatalogList from "../components/catalogList";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAll } from "../lib/slices/modelsSlice";
+import { useTranslation } from "react-i18next";
 
 export default function Category() {
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(getAll());
@@ -28,7 +30,7 @@ export default function Category() {
 
   return (
     <>
-      <h1 className={clsx("text-center text-5xl")}>{filter === '' ? 'All products' : `${filter.charAt(0).toUpperCase() + filter.slice(1)}s`}</h1>
+      <h1 className={clsx("text-center text-5xl")}>{filter === '' ? t('all products') : t(`${filter}s`)}</h1>
       <div className={clsx("catalog-wrapper")}>
         <Sidebar array={categoriesArray.sort()}/>
         <CatalogList array={filteredArray} />

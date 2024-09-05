@@ -3,9 +3,12 @@
 import clsx from "clsx";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useMediaQuery } from "react-responsive";
 
 export default function Footer() {
+
+  const { t } = useTranslation()
 
   const isMini = useMediaQuery({ query: "(max-width: 420px)" })
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
@@ -23,44 +26,44 @@ export default function Footer() {
     <div className={clsx("mt-auto py-14 px-14 bg-[#8a8475]", isMini && "px-2")}>
       <div className={clsx('flex', isMobile && 'flex-col gap-10 items-center')}>
         <div className={clsx(isMini && 'w-full')}>
-          <h4 className={clsx("text-lg text-slate-50")}>Subscribe to our news</h4>
+          <h4 className={clsx("text-lg text-slate-50")}>{t('subscribe to our news')}</h4>
           <label htmlFor='subscribe' className={clsx("block text-slate-50 mt-5")}>
             Email:
           </label>
           <input id='subscribe' className={clsx("block mt-2 bg-transparent border-solid border-2 py-2 px-5 text-slate-50", isMini && "w-full")}/>
-          <button className={clsx("inline mt-1 text-slate-50 border-solid border-2 py-2 px-5")}>Прійняти</button>
-          <p className={clsx("ml-5 inline text-slate-50")}>Thank you!</p>
+          <button className={clsx("inline mt-1 text-slate-50 border-solid border-2 py-2 px-5")}>{t('apply')}</button>
+          <p className={clsx("ml-5 inline text-slate-50")}>{t('thank you')}!</p>
         </div>
         <div className={clsx(!isMobile && 'ml-auto', 'flex')}>
           <div className={clsx('px-3 text-slate-50')}>
             <h4>
-              Shop
+              {t('shop')}
             </h4>
             <ul>
               <li>
-                <a href='/' className={clsx('block mt-5')}>Furniture</a>
+                <a href='/' className={clsx('block mt-5')}>{t('furniture')}</a>
               </li>
               <li>
-                <a href='/' className={clsx('block mt-3')}>New</a>
+                <a href='/' className={clsx('block mt-3')}>{t('new')}</a>
               </li>
               <li>
-                <a href='/' className={clsx('block mt-3')}>Sale</a>
+                <a href='/' className={clsx('block mt-3')}>{t('sale')}</a>
               </li>
             </ul>
           </div>
           <div className={clsx('ml-10 px-3 text-slate-50')}>
             <h4>
-              About M&apos;якоff
+              {t('about')} M&apos;якоff
             </h4>
             <ul>
               <li>
-                <Link href='/about-us' className={clsx('block mt-5')}>Our Story</Link>
+                <Link href='/about-us' className={clsx('block mt-5')}>{t('our story')}</Link>
               </li>
               <li>
-                <Link href='/' className={clsx('block mt-3')}>Stores</Link>
+                <Link href='/' className={clsx('block mt-3')}>{t('stores')}</Link>
               </li>
               <li>
-                <Link href='/contacts' className={clsx('block mt-3')}>Contacts</Link>
+                <Link href='/contacts' className={clsx('block mt-3')}>{t('contacts')}</Link>
               </li>
             </ul>
           </div>
@@ -76,7 +79,7 @@ export default function Footer() {
             <p className={clsx("ml-2.5 font-bold")}>М&apos;якоff</p>
           </a>
           <p className={clsx(!isMobile && "pl-8", "text-slate-50")}>
-            9 Borispilska Street, Kyiv, Ukraine <br />{" "}
+            {t('9 Borispilska Street, Kyiv, Ukraine')} <br />{" "}
             <a href="tel:0503259656">050-325-9656</a> /{" "}
             <a href="mailto:info@gmail.com">info@gmail.com</a>
           </p>

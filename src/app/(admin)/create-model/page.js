@@ -6,10 +6,12 @@ import Select from "react-select";
 import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import PropagateLoader from "react-spinners/PropagateLoader";
+import { useTranslation } from "react-i18next";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export default function CreateModel() {
+  const { t } = useTranslation();
   const [selectedCategories, setSelectedCategories] = useState({
     value: "sofa",
     label: "Sofa",
@@ -30,7 +32,7 @@ export default function CreateModel() {
 
   return (
     <div>
-      <h2 className={clsx("text-2xl text-center")}>Create model form</h2>
+      <h2 className={clsx("text-2xl text-center")}>{t('create model form')}</h2>
       <Formik
         initialValues={{
           category: selectedCategories.value,
@@ -71,7 +73,7 @@ export default function CreateModel() {
       >
         <Form className={clsx("flex flex-col max-w-96")}>
           <div className={clsx("mb-3.5")}>
-            <label htmlFor="category">Category</label>
+            <label htmlFor="category">{t('category')}</label>
             <Field
               component={Select}
               name="category"
@@ -82,7 +84,7 @@ export default function CreateModel() {
             ></Field>
           </div>
           <div className={clsx("mb-3.5")}>
-            <label htmlFor="family">Family</label>
+            <label htmlFor="family">{t('family')}</label>
             <Field
               className={clsx("w-full p-2 border-2 border-[#ccc] rounded")}
               id="family"
@@ -91,7 +93,7 @@ export default function CreateModel() {
             />
           </div>
           <div className={clsx("mb-3.5")}>
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">{t('name')}</label>
             <Field
               className={clsx("w-full p-2 border-2 border-[#ccc] rounded")}
               id="name"
@@ -100,7 +102,7 @@ export default function CreateModel() {
             />
           </div>
           <div className={clsx("mb-3.5")}>
-            <label htmlFor="size">Size</label>
+            <label htmlFor="size">{t('size')}</label>
             <Field
               className={clsx("w-full p-2 border-2 border-[#ccc] rounded")}
               id="size"
@@ -109,7 +111,7 @@ export default function CreateModel() {
             />
           </div>
           <div className={clsx("mb-3.5")}>
-            <label htmlFor="sleepingArea">Sleeping area</label>
+            <label htmlFor="sleepingArea">{t('sleeping area')}</label>
             <Field
               className={clsx("w-full p-2 border-2 border-[#ccc] rounded")}
               id="sleepingArea"
@@ -118,7 +120,7 @@ export default function CreateModel() {
             />
           </div>
           <div className={clsx("mb-3.5")}>
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">{t('description')}</label>
             <Field
               className={clsx("w-full p-2 border-2 border-[#ccc] rounded")}
               id="description"
@@ -127,7 +129,7 @@ export default function CreateModel() {
             />
           </div>
           <div className={clsx("mb-3.5")}>
-            <label htmlFor="basePrice">Base price</label>
+            <label htmlFor="basePrice">{t('base price')}</label>
             <Field
               className={clsx("w-full p-2 border-2 border-[#ccc] rounded")}
               id="basePrice"
@@ -136,7 +138,7 @@ export default function CreateModel() {
             />
           </div>
           <div className={clsx("mb-3.5")}>
-            <label htmlFor="files">Add images</label>
+            <label htmlFor="files">{t('add images')}</label>
             <Field
               className={clsx("w-full p-2 border-2 border-[#ccc] rounded")}
               id="files"
@@ -146,11 +148,11 @@ export default function CreateModel() {
               multiple
             />
           </div>
-          <button type="submit" className={clsx("")}>
+          <button type="submit" className={clsx("p-2 border-2 border-[#ccc] rounded")}>
           {isPending ? (
             <PropagateLoader color="#5f747c" />
           ) : (
-              'Submit'
+              t('submit')
           )}
           </button>
         </Form>
