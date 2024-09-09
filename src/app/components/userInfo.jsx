@@ -25,15 +25,20 @@ export default function UserInfo() {
       <div className={clsx("border-2 border-black p-5 mt-4")}>
         <ul>
           <li>
-            <Link href="/account">{t('my account')}</Link>
+            <Link href="/account">{t("my account")}</Link>
           </li>
           <li className={clsx("mt-3")}>
-            <Link href="/orders">{t('my orders')}</Link>
+            <Link href="/orders">{t("my orders")}</Link>
           </li>
           {user.description === "administrator" && (
-            <li className={clsx("mt-3")}>
-              <Link href="/create-model">{t('add model')}</Link>
-            </li>
+            <ul>
+              <li className={clsx("mt-3")}>
+                <Link href="/create-model">{t("add model")}</Link>
+              </li>
+              <li className={clsx("mt-3")}>
+                <Link href="/leads">{t("leads")}</Link>
+              </li>
+            </ul>
           )}
         </ul>
       </div>

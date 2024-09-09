@@ -6,16 +6,15 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const initialState = {
   array: [],
-  current: {},
   error: "",
   isRefreshing: false,
 };
 
 export const getAll = createAsyncThunk(
-  'models/all',
+  'leads/all',
   async (_, thunkAPI) => {
     try {
-      const res = await axios.get('/models/all');
+      const res = await axios.get('/leads/all');
       return res.data.array;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -24,10 +23,10 @@ export const getAll = createAsyncThunk(
 );
 
 export const add = createAsyncThunk(
-  'models/add',
+  'leads/add',
   async (credentials, thunkAPI) => {
     try {
-      await axios.post("/models/add", credentials, {
+      await axios.post("/leads/add", credentials, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -40,24 +39,11 @@ export const add = createAsyncThunk(
   }
 );
 
-export const getOne = createAsyncThunk(
-  'models/current',
-  async (_id, thunkAPI) => {
-    try {
-      const res = await axios.post('/models/get', {"id": _id})
-        
-      return res.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
-
 export const remove = createAsyncThunk(
-  'models/remove', 
+  'leads/remove', 
   async (id, thunkAPI) => {
   try {
-    await axios.delete('/models/remove', {
+    await axios.delete('/leads/remove', {
       data: { id },
       headers: {
         'Content-Type': 'application/json'
@@ -70,10 +56,10 @@ export const remove = createAsyncThunk(
 });
 
 export const update = createAsyncThunk(
-    'models/update', 
+    'leads/update', 
     async (credentials, thunkAPI) => {
     try {
-      await axios.post("/models/update", credentials, {
+      await axios.post("/leads/add", credentials, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -86,16 +72,13 @@ export const update = createAsyncThunk(
     }
   });
 
-export const modelSlice = createSlice({
-  name: 'models',
+export const leadSlice = createSlice({
+  name: 'leads',
   initialState,
   extraReducers: builder => {
     builder
       .addCase(add.fulfilled, (state, action) => {
         state.models = action.payload;
-      })
-      .addCase(getOne.fulfilled, (state, action) => {
-        state.current = action.payload.model;
       })
       .addCase(remove.fulfilled, (state, action) => {
         // state.array = action.payload;
@@ -112,4 +95,4 @@ export const modelSlice = createSlice({
   },
 });
 
-export default modelSlice.reducer;
+export default leadSlice.reducer;

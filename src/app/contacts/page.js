@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Formik, Field, Form } from "formik";
+import axios from "axios";
 
 export default function Contacts() {
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
@@ -52,10 +53,15 @@ export default function Contacts() {
             initialValues={{
               name: "",
               email: "",
+              message: "",
             }}
-            onSubmit={async (values) => {
-              await new Promise((r) => setTimeout(r, 500));
-              alert(JSON.stringify(values, null, 2));
+            onSubmit={async (values, { resetForm }) => {
+              await axios.post('leads/add', {
+                name: values.name,
+                email: values.email,
+                message: values.message,
+              })
+              resetForm()
             }}
           >
             <Form className={clsx('mt-5 flex flex-col border-solid border-2 border-[#8a8475] rounded p-3')}>
