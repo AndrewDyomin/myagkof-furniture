@@ -1,11 +1,9 @@
 "use client";
 
 import clsx from "clsx";
-import Image from "next/image";
 import Link from "next/link";
 import Carousel from "./carousel";
 import Fancybox from "./fancybox";
-import { CldImage } from "next-cloudinary";
 
 export default function CatalogList({ array }) {
   return (
@@ -33,21 +31,12 @@ export default function CatalogList({ array }) {
                       className="f-carousel__slide"
                       href={`/category/${item._id}`}
                     >
-                      <CldImage
-                        src={`${i}`}
-                        width="288"
-                        height="218"
-                        crop={{
-                          type: "auto",
-                          source: true,
-                        }}
-                      />
-                      {/* <img
-                        src={`https://lh3.googleusercontent.com/d/${i}=w800?authuser=0`}
+                      <img
+                        src={`http://res.cloudinary.com/dpvewcxp0/image/upload/v1725965152/${i}.jpg`}
                         width={"100%"}
                         height={"auto"}
                         alt={`${item.name} ${item._id}`}
-                      /> */}
+                      />
                     </div>
                   ))}
                 </Carousel>

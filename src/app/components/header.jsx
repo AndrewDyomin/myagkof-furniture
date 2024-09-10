@@ -149,7 +149,7 @@ export default function Header() {
         {isMobile ? (
           <button className={clsx("ml-auto")} onClick={openMenu}>
             <svg className={clsx("h-8 w-8")}>
-              <use href="/icons/sprite.svg#icon-menu"></use>
+              <use href="./icons/sprite.svg#icon-menu"></use>
             </svg>
           </button>
         ) : (

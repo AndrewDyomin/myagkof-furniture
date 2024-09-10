@@ -71,6 +71,15 @@ button {
     margin: 0;
   }
 
+  .mobile-model-name {
+    text-align: center;
+  }
+
+  .model-name {
+    position: absolute;
+    visibility: hidden;
+  }
+
 }
 
 @media screen and (min-width: 768px) {
@@ -92,6 +101,11 @@ button {
   .slider-container {
     width: 800px;
     max-width: 80%;
+  }
+
+  .mobile-model-name {
+    position: absolute;
+    visibility: hidden;
   }
 }
 
