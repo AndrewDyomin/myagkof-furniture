@@ -22,7 +22,7 @@ export default function CurrentModel({ id }) {
   if (model && model.images) {
     const images = [];
     model.images.forEach((i) =>
-      images.push(`https://lh3.googleusercontent.com/d/${i}=w800?authuser=0`)
+      images.push(`http://res.cloudinary.com/dpvewcxp0/image/upload/v1725965152/${i}.jpg`)
     );
 
     return (

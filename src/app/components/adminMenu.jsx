@@ -227,7 +227,7 @@ export default function AdminMenu({ model }) {
                         {arrayHelpers.form.values.images.map((image, index) => (
                           <div key={index} className={clsx("flex flex-wrap")}>
                             <img
-                              src={`https://lh3.googleusercontent.com/d/${image}=w800?authuser=0`}
+                              src={`http://res.cloudinary.com/dpvewcxp0/image/upload/v1725965152/${image}.jpg`}
                               alt={image}
                               width={"200px"}
                             />
