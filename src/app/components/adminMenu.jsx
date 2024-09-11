@@ -278,7 +278,7 @@ export default function AdminMenu({ model }) {
             style={deleteMenuStyles}
             ariaHideApp={false}
           >
-            <p className={clsx("mx-auto text-2xl")}>{t('are you shure')}???</p>
+            <p className={clsx("mx-auto text-2xl")}>{t('are you sure')}???</p>
             <div className={clsx("flex gap-5 mt-auto")}>
               <button
                 className={clsx(

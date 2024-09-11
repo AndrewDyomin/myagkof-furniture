@@ -10,7 +10,7 @@ const initialState = {
   isRefreshing: false,
 };
 
-export const getAll = createAsyncThunk(
+export const getAllLeads = createAsyncThunk(
   'leads/all',
   async (_, thunkAPI) => {
     try {
@@ -31,7 +31,7 @@ export const add = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
-      const res = thunkAPI.dispatch(getAll());
+      const res = thunkAPI.dispatch(getAllLeads());
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -48,7 +48,7 @@ export const remove = createAsyncThunk(
       headers: {
         'Content-Type': 'application/json'
       }});
-      const res = await thunkAPI.dispatch(getAll());
+      const res = await thunkAPI.dispatch(getAllLeads());
       return res.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -65,7 +65,7 @@ export const update = createAsyncThunk(
         },
       });
 
-      const res = thunkAPI.dispatch(getAll());
+      const res = thunkAPI.dispatch(getAllLeads());
       return res;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -89,7 +89,7 @@ export const leadSlice = createSlice({
       .addCase(update.fulfilled, (state, action) => {
         state.array = action.payload;
       })
-      .addCase(getAll.fulfilled, (state, action) => {
+      .addCase(getAllLeads.fulfilled, (state, action) => {
         state.array = action.payload;
       });
   },

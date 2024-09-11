@@ -39,14 +39,19 @@
     "delete": "Удалить",
     "category": "Категория",
     "family": "Модельный ряд",
-    "name": "Название",
+    "name": "Имя",
     "sleeping area": "Спальное место",
     "base price": "Базовая цена",
     "add images": "Добавить фото",
     "submit": "Принять",
-    "are you shure": "Вы уверены",
+    "are you sure": "Вы уверены",
     "cancel": "Отмена",
     "add model": "Добавить модель",
     "create model form": "Форма создания модели",
-    "model range": "Модельный ряд"
+    "model range": "Модельный ряд",
+    "cost calculation": "Просчет стоимости",
+    "phone": "Телефон",
+    "message": "Сообщение",
+    "Thank you for your application. Our manager will call you shortly": "Спасибо за вашу заявку. Наш менеджер позвонит вам в ближайшее время",
+    "leads": "Заявки"
 }

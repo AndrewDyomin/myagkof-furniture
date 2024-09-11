@@ -44,7 +44,7 @@
     "base price": "Base price",
     "add images": "Add images",
     "submit": "Submit",
-    "are you shure": "Are you shure",
+    "are you sure": "Are you shure",
     "cancel": "Cancel",
     "add model": "Add model",
     "administrator": "Admin",
@@ -53,5 +53,9 @@
     "upholsterer": "Upholsterer",
     "seamstress": "Seamstress",
     "create model form": "Crteate model form",
-    "model range": "Model range"
+    "model range": "Model range",
+    "cost calculation": "Cost calculation",
+    "phone": "Phone",
+    "message": "Message",
+    "leads": "Leads"
 }

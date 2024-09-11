@@ -39,14 +39,19 @@
     "delete": "Видалити",
     "category": "Категорія",
     "family": "Модельний ряд",
-    "name": "Назва",
+    "name": "Ім'я",
     "sleeping area": "Спальне місце",
     "base price": "Базова ціна",
     "add images": "Додати фото",
     "submit": "Прийняти",
-    "are you shure": "Ви впевнені",
+    "are you sure": "Ви впевнені",
     "cancel": "Скасувати",
     "add model": "додати модель",
     "create model form": "Форма створення моделі",
-    "model range": "модельний ряд"
+    "model range": "модельний ряд",
+    "cost calculation": "Прорахунок вартості",
+    "phone": "Телефон",
+    "message": "Повідомлення",
+    "Thank you for your application. Our manager will call you shortly": "Дякуємо за вашу заявку. Наш менеджер зателефонує вам найближчим часом",
+    "leads": "Заявки"
 }
