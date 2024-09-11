@@ -22,6 +22,7 @@ export default function CreateModel() {
   const categories = [
     { value: "sofa", label: "Sofa" },
     { value: "bed", label: "Bed" },
+    { value: "mattress", label: "Mattress" },
     { value: "banquette", label: "Banquette" },
     { value: "pouf", label: "Pouf" },
   ];

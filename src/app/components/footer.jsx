@@ -88,17 +88,17 @@ export default function Footer() {
             <h4>{t("shop")}</h4>
             <ul>
               <li>
-                <a href="/" className={clsx("block mt-5")}>
+                <a href="/category" className={clsx("block mt-5")}>
                   {t("furniture")}
                 </a>
               </li>
               <li>
-                <a href="/" className={clsx("block mt-3")}>
+                <a href="/category" className={clsx("block mt-3")}>
                   {t("new")}
                 </a>
               </li>
               <li>
-                <a href="/" className={clsx("block mt-3")}>
+                <a href="/category" className={clsx("block mt-3")}>
                   {t("sale")}
                 </a>
               </li>
