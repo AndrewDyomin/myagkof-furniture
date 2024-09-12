@@ -118,7 +118,6 @@ export const authSlice = createSlice({
       })
       .addCase(logIn.rejected, (state, action) => {
         toast.error(action.error.message)
-        console.log(action)
       })
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };

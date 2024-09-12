@@ -5,6 +5,7 @@ import Footer from "./components/footer";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import I18n from "./components/i18n";
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
           <I18n>
             <Header />
             <div>{children}</div>
+            <Toaster position="top-center" reverseOrder={false} />
             <Footer />
           </I18n>
         </ReduxProvider>
