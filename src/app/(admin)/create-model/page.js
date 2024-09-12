@@ -25,6 +25,7 @@ export default function CreateModel() {
     { value: "mattress", label: "Mattress" },
     { value: "banquette", label: "Banquette" },
     { value: "pouf", label: "Pouf" },
+    { value: "couch", label: "Couch" },
   ];
 
   const handleFileChange = (event) => {

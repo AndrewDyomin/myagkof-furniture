@@ -18,6 +18,7 @@ export default function Header() {
   const { t } = useTranslation();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const user = useSelector((state) => state.auth.user);
+  const leadsArray = useSelector((state) => state.leads.array);
   const [isClient, setIsClient] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -29,10 +30,6 @@ export default function Header() {
   }, [dispatch]);
 
   const isMobile = useMediaQuery({ query: "(max-width: 767px)" });
-  const isTablet = useMediaQuery({
-    query: "(min-width: 768px) and (max-width: 1199px)",
-  });
-  const isDesktop = useMediaQuery({ query: "(min-width: 1200px)" });
 
   const openMenu = () => {
     setIsModalOpen(true);
@@ -130,6 +127,16 @@ export default function Header() {
     closeUserMenu();
   };
 
+  const newLeadsCount = () => {
+    let count = 0;
+    leadsArray.forEach((i) => {
+      if (i.status === "new") {
+        count += 1;
+      }
+    });
+    return count;
+  };
+
   if (!isClient) {
     return null; //TO DO (add loader)
   }
@@ -155,13 +162,13 @@ export default function Header() {
         ) : (
           <ul className={clsx("flex ml-auto items-center gap-3")}>
             <li onClick={() => dispatch(changeFilter(""))}>
-              <Link href="/category">{t('catalog')}</Link>
+              <Link href="/category">{t("catalog")}</Link>
             </li>
             <li>
-              <Link href="/about-us">{t('about us')}</Link>
+              <Link href="/about-us">{t("about us")}</Link>
             </li>
             <li>
-              <Link href="/contacts">{t('contacts')}</Link>
+              <Link href="/contacts">{t("contacts")}</Link>
             </li>
           </ul>
         )}
@@ -207,8 +214,13 @@ export default function Header() {
                 alt="user logo"
               />
               <div className={clsx("relative")}>
-                <button onClick={openUserMenu}>
+                <button onClick={openUserMenu} className="flex">
                   <p>{user.name}</p>
+                  {newLeadsCount() > 0 && !isUserMenuOpen && (
+                    <p className="w-5 h-5 text-[10px] border-2 border-blue-400 bg-blue-200 rounded-full text-center align-center">
+                      {newLeadsCount()}
+                    </p>
+                  )}
                 </button>
                 <Modal
                   isOpen={isUserMenuOpen}
@@ -220,20 +232,32 @@ export default function Header() {
                     <ul>
                       <li>
                         <Link onClick={closeUserMenu} href="/account">
-                          {t('my account')}
+                          {t("my account")}
                         </Link>
                       </li>
                       <li className={clsx("mt-3")}>
                         <Link onClick={closeUserMenu} href="/orders">
-                          {t('my orders')}
+                          {t("my orders")}
                         </Link>
                       </li>
+                      {user.description === "administrator" && (
+                        <li className={clsx("mt-3")}>
+                          <Link onClick={closeUserMenu} href="/leads" className="flex">
+                            {t("leads")}
+                            {newLeadsCount() > 0 && (
+                              <p className="w-5 h-5 text-[10px] border-2 border-blue-400 bg-blue-200 rounded-full text-center align-center">
+                                {newLeadsCount()}
+                              </p>
+                            )}
+                          </Link>
+                        </li>
+                      )}
                     </ul>
                     <button
                       className={clsx("mt-auto border-2 rounded")}
                       onClick={logOutHandler}
                     >
-                      {t('log out')}
+                      {t("log out")}
                     </button>
                   </div>
                 </Modal>
@@ -253,10 +277,10 @@ export default function Header() {
                 />
               </li>
               <li>
-                <button onClick={logInHandler}>{t('log in')}</button>
+                <button onClick={logInHandler}>{t("log in")}</button>
               </li>
               <li>
-                <button>{t('register')}</button>
+                <button>{t("register")}</button>
               </li>
             </ul>
           )}
@@ -282,17 +306,17 @@ export default function Header() {
             <ul className={clsx("grid gap-5")}>
               <li>
                 <Link href="/category" onClick={closeMenu}>
-                  {t('catalog')}
+                  {t("catalog")}
                 </Link>
               </li>
               <li>
                 <Link href="/about-us" onClick={closeMenu}>
-                  {t('about us')}
+                  {t("about us")}
                 </Link>
               </li>
               <li>
                 <Link href="/contacts" onClick={closeMenu}>
-                  {t('contacts')}
+                  {t("contacts")}
                 </Link>
               </li>
             </ul>
@@ -321,10 +345,10 @@ export default function Header() {
                   />
                 </li>
                 <li>
-                  <button onClick={logInHandler}>{t('log in')}</button>
+                  <button onClick={logInHandler}>{t("log in")}</button>
                 </li>
                 <li>
-                  <button>{t('register')}</button>
+                  <button>{t("register")}</button>
                 </li>
               </ul>
             </div>

@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { getAllLeads } from './leadSlice';
+import { useDispatch } from 'react-redux';
+import toast from 'react-hot-toast'
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_SERVER_URL;
 
@@ -47,6 +50,9 @@ export const logIn = createAsyncThunk(
       const res = await axios.post('/auth/login', credentials);
       setAuthHeader(res.data.token);
       localStorage.setItem('auth', JSON.stringify(res.data));
+      if (res.data.user.description === 'administrator') {
+        thunkAPI.dispatch(getAllLeads())
+      }
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -83,6 +89,9 @@ export const refreshUser = createAsyncThunk(
     try {
       setAuthHeader(persistedToken);
       const res = await axios.post('/auth/current');
+      if (res.data.user.description === 'administrator') {
+        thunkAPI.dispatch(getAllLeads())
+      }
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -106,6 +115,10 @@ export const authSlice = createSlice({
         state.token = action.payload.token;
         state.isLoggedIn = true;
         setAuthCookies(true);
+      })
+      .addCase(logIn.rejected, (state, action) => {
+        toast.error(action.error.message)
+        console.log(action)
       })
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
